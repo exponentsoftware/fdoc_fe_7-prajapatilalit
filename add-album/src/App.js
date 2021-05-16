@@ -4,12 +4,6 @@ import AlbumList from "./Components/AlbumList";
 function App(props) {
   return (
     <>
-      {/* <AddAlbum
-        key={props.id}
-        albumCover={props.albumCover}
-        albumTitle={props.albumTitle}
-        artist={props.artist}
-      /> */}
       <AlbumList />
     </>
   );

@@ -33,6 +33,7 @@ const AddAlbum = ({ save }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        <h2>Add item here</h2>
         <input
           type="text"
           name="albumTitle"
@@ -48,7 +49,7 @@ const AddAlbum = ({ save }) => {
           value={artist}
         />
         <input type="file" name="albumCover" onChange={fileSelectHandler} />
-        <button>Upload</button>
+        <button className="btn">Upload</button>
       </form>
     </>
   );
