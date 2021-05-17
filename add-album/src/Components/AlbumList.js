@@ -7,6 +7,7 @@ const AlbumList = () => {
   //add Album
   const addAlbumCard = (album) => {
     let newAlbums = [album, ...addAlbum];
+    // localStorage.setItem("addAlbum", JSON.stringify(newAlbums));
     setAddAlbum(newAlbums);
   };
   return (
@@ -20,7 +21,7 @@ const AlbumList = () => {
           addAlbum.map((currentFile) => {
             return (
               <div key={currentFile.id}>
-                <img src={currentFile.albumCover} alt="cover-pic" />
+                <img src={currentFile.albumCover} />
                 <p>{currentFile.albumTitle}</p>
                 <p>{currentFile.artist}</p>
               </div>
