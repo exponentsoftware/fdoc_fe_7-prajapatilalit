@@ -4,25 +4,24 @@ import album from "./AlbumData";
 import Album from "./Album";
 
 const AlbumList = () => {
-  const [addAlbum, setAddAlbum] = useState(album);
+  const [addAlbums, setAddAlbums] = useState(album);
 
   //add Album
   const addAlbumCard = (albumItem) => {
-    const newAlbums = [albumItem, ...addAlbum];
+    const newAlbums = [albumItem, ...addAlbums];
     // localStorage.setItem("addAlbum", JSON.stringify(newAlbums));
-    setAddAlbum(newAlbums);
+    setAddAlbums(newAlbums);
   };
-  console.log(addAlbum);
 
   //Delete album
 
   const removeAlbumCard = (id) => {
-    const removeArr = [...addAlbum].filter((albumCard) => {
+    const removeArr = [...addAlbums].filter((albumCard) => {
       return albumCard.id !== id;
     });
-    setAddAlbum(removeArr);
+    setAddAlbums(removeArr);
   };
-  console.log(addAlbum);
+  console.log(addAlbums);
   return (
     <>
       <div className="header">
@@ -33,17 +32,7 @@ const AlbumList = () => {
         <div className="albums">
           <h1 className="album-heading">Albums</h1>
           <div className="album_item">
-            {addAlbum.map((item) => {
-              return (
-                <Album
-                  key={item.id}
-                  albumCover={item.albumCover}
-                  albumTitle={item.albumTitle}
-                  artist={item.artist}
-                  removeAlbumCard={removeAlbumCard}
-                />
-              );
-            })}
+            <Album addAlbums={addAlbums} removeAlbumCard={removeAlbumCard} />
           </div>
         </div>
       </div>
