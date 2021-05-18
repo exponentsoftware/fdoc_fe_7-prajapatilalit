@@ -22,18 +22,22 @@ const AlbumList = () => {
         <h1>Album Lists</h1>
         <AddAlbum save={addAlbumCard} setList={addAlbumCard} />
       </div>
-      <div>
-        {addAlbum.map((item) => {
-          return (
-            <Album
-              key={item.id}
-              albumCover={item.albumCover}
-              albumTitle={item.albumTitle}
-              artist={item.artist}
-            />
-          );
-        })}
-        <Album />
+      <div className="container">
+        <div className="albums">
+          <h1 className="album-heading">Albums</h1>
+          <div className="album_item">
+            {addAlbum.map((item) => {
+              return (
+                <Album
+                  key={item.id}
+                  albumCover={item.albumCover}
+                  albumTitle={item.albumTitle}
+                  artist={item.artist}
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
     </>
   );
