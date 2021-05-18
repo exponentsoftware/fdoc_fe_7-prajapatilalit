@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import album from "./AlbumData";
 
 const AddAlbum = ({ save }) => {
+  const [list, setList] = useState(album);
   const [albumCover, setAlbumCover] = useState(null);
   const [albumTitle, setAlbumTitle] = useState("");
   const [artist, setArtist] = useState("");
@@ -20,18 +22,21 @@ const AddAlbum = ({ save }) => {
       artist: artist,
       albumTitle: albumTitle,
     };
+
+    const newList = list.concat(albumData);
+    setList(newList);
     save(albumData);
 
     const fd = new FormData();
 
-    fd.append("albumCover", albumData.albumCover);
+    fd.append("image", albumData.albumCover);
     fd.append("albumTitle", albumData.albumTitle);
     fd.append("artist", albumData.artist);
-    console.log(typeof fd);
-    const config = {
-      headers: {
-        Authorization: "bearer 2e463fc087b60e7d9b95e0afedaeae2ec03e633f",
-        "Content-Type": "application/json",
+
+    let config = {
+      Headers: {
+        Authorization: "Client-ID 30e9aff1ee22f93",
+        Accept: "application/json",
       },
     };
     axios
@@ -42,8 +47,6 @@ const AddAlbum = ({ save }) => {
       .catch((error) => {
         return console.log("error", error);
       });
-
-    console.log(albumData);
 
     setAlbumCover("");
     setAlbumTitle("");
@@ -61,6 +64,7 @@ const AddAlbum = ({ save }) => {
             placeholder="Add Title"
             onChange={(e) => setAlbumTitle(e.target.value)}
             value={albumTitle}
+            required={true}
           />
           <input
             type="text"
@@ -68,12 +72,14 @@ const AddAlbum = ({ save }) => {
             placeholder="Add Artist Name"
             onChange={(e) => setArtist(e.target.value)}
             value={artist}
+            required={true}
           />
           <input
             type="file"
             accept="image/*"
             name="albumCover"
             onChange={fileSelectHandler}
+            required={true}
           />
           <button className="btn">Upload</button>
         </form>
