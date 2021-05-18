@@ -1,3 +1,4 @@
+![Screenshot from 2021-05-18 16-28-16](https://user-images.githubusercontent.com/66167112/118640017-25dcd780-b7f6-11eb-88b4-26807c46a0cc.png)
 # Day 7
 
 ## Spotify: Add album and lifting up the state
