@@ -8,14 +8,21 @@ const AlbumList = () => {
 
   //add Album
   const addAlbumCard = (albumItem) => {
-    let newAlbums = [albumItem, ...addAlbum];
+    const newAlbums = [albumItem, ...addAlbum];
     // localStorage.setItem("addAlbum", JSON.stringify(newAlbums));
     setAddAlbum(newAlbums);
   };
   console.log(addAlbum);
+
   //Delete album
 
-  // console.log(addAlbum);
+  const removeAlbumCard = (id) => {
+    const removeArr = [...addAlbum].filter((albumCard) => {
+      return albumCard.id !== id;
+    });
+    setAddAlbum(removeArr);
+  };
+  console.log(addAlbum);
   return (
     <>
       <div className="header">
@@ -33,6 +40,7 @@ const AlbumList = () => {
                   albumCover={item.albumCover}
                   albumTitle={item.albumTitle}
                   artist={item.artist}
+                  removeAlbumCard={removeAlbumCard}
                 />
               );
             })}

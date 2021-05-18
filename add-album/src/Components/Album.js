@@ -1,6 +1,6 @@
 import React from "react";
 
-const Album = (props) => {
+const Album = (props, { removeAlbumCard }) => {
   return (
     <>
       <div key={props.id} className="album">
@@ -8,6 +8,7 @@ const Album = (props) => {
         <div className="album_info">
           <p>{props.albumTitle}</p>
           <span className="album_category">{props.artist}</span>
+          <button onClick={() => removeAlbumCard(props.id)}>Delete</button>
         </div>
       </div>
     </>
