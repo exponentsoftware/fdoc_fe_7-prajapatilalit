@@ -8,7 +8,9 @@ const Album = ({ removeAlbumCard, addAlbums }) => {
       <div className="album_info">
         <p>{addAlbum.albumTitle}</p>
         <span className="album_category">{addAlbum.artist}</span>
-        <button onClick={() => removeAlbumCard(addAlbum.id)}>Delete</button>
+        <button className="btn mt" onClick={() => removeAlbumCard(addAlbum.id)}>
+          Delete
+        </button>
       </div>
     </div>
   ));

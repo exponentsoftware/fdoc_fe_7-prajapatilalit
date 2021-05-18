@@ -49,7 +49,7 @@ form input {
   cursor: pointer;
 }
 
-form .btn {
+.btn {
   background-color: #1b1717;
   color: white;
   font-size: 16px;
@@ -60,7 +60,7 @@ form .btn {
   text-align: center;
 }
 
-form .btn:hover {
+.btn:hover {
   background-color: #8c0000;
   color: white;
 }
@@ -137,6 +137,9 @@ form .btn:hover {
   font-family: "Montserrat", sans-serif;
   background-color: #ffff;
   text-transform: capitalize;
+}
+.mt {
+  margin-top: 5px;
 }
 
 @media (max-width: 768px) {
