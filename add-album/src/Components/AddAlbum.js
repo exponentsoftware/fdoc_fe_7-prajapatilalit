@@ -2,9 +2,16 @@ import React, { Component } from "react";
 
 class AddAlbum extends Component {
   state = {
-    artist: "",
     album: "",
-    file: null,
+    artist: "",
+    albumCover: "",
+  };
+
+  fileSelectHandleChange = (e) => {
+    const currFile = e.target.files[0];
+    this.setState({
+      albumCover: URL.createObjectURL(currFile),
+    });
   };
 
   handleSubmit = (e) => {
@@ -15,13 +22,13 @@ class AddAlbum extends Component {
     return (
       <>
         <div className="form-header">
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <h2>Add Album Here</h2>
             <input
               type="text"
-              name="albumTitle"
+              name="album"
               placeholder="Add Title"
-              onChange={(e) => this.setState({ text: e.target.value })}
+              onChange={(e) => this.setState({ album: e.target.value })}
               value={this.state.album}
               required={true}
             />
@@ -29,16 +36,15 @@ class AddAlbum extends Component {
               type="text"
               name="artist"
               placeholder="Add Artist Name"
-              onChange={(e) => this.setState(e.target.value)}
-              value={this.state.artist}
+              onChange={(e) => this.setState({ artist: e.target.value })}
+              value={this.artist}
               required={true}
             />
             <input
               type="file"
               accept="image/*"
               name="albumCover"
-              onChange={(e) => this.setState(e.target.value)}
-              value={this.state.file[0]}
+              onChange={this.fileSelectHandleChange}
               required={true}
             />
             <button className="btn">Upload</button>
@@ -48,7 +54,7 @@ class AddAlbum extends Component {
     );
   }
 }
-
+export default AddAlbum;
 // const AddAlbum = ({ save }) => {
 //   const [list, setList] = useState(album);
 //   const [albumCover, setAlbumCover] = useState(null);
@@ -57,7 +63,7 @@ class AddAlbum extends Component {
 
 //   const fileSelectHandler = (e) => {
 //     const currentFile = e.target.files[0];
-//     setAlbumCover(URL.createObjectURL(currentFile));
+//     setAlbumCover({albumCover:URL.createObjectURL(currentFile)});
 //   };
 
 //   const handleSubmit = (e) => {
@@ -137,5 +143,3 @@ class AddAlbum extends Component {
 // </>
 //   );
 // };
-
-export default AddAlbum;
