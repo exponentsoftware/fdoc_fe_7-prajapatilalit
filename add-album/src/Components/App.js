@@ -1,71 +1,41 @@
 import React, { Component } from "react";
 import Albums from "./Albums";
 import AddAlbum from "./AddAlbum";
+import albumList from "./AlbumData";
 
 class App extends Component {
   state = {
-    albums: [
-      {
-        id: 0,
-        artist: "A.R.Rahman",
-        album: "Rockstar",
-        albumCover:
-          "https://stat2.bollywoodhungama.in/wp-content/uploads/2016/03/Rockstar-Poster-Feature-306x393.jpg",
-        songs: "",
-      },
-      {
-        id: 1,
-        artist: "Rihana",
-        album: "Diamond",
-        albumCover:
-          "https://static-musique.qub.ca/images/covers/20/61/0060253726120_max.jpg",
-        songs: "",
-      },
-      {
-        id: 2,
-        artist: "A.R. Rahman",
-        album: "Jodha Akbar",
-        albumCover:
-          "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQHiFZH8kKxbCZRbElcmmW1py65EmiqpqWk6LBEuEH76kII_xcx",
-        songs: "",
-      },
-      {
-        id: 3,
-        artist: "A.R. Rahman",
-        album: "Highway",
-        albumCover:
-          "https://in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/highway-et00014920-17-06-2020-12-28-06.jpg",
-        songs: "",
-      },
-      {
-        id: 4,
-        artist: "A.R. Rahman",
-        album: "Ranjhana",
-        albumCover: "https://i.ytimg.com/vi/lfmYmTpIH4o/movieposter.jpg",
-        songs: "",
-      },
-      {
-        id: 5,
-        artist: "A.R. Rahman",
-        album: "Ghajni",
-        albumCover: "https://flxt.tmsimg.com/assets/p191083_p_v10_ab.jpg",
-        songs: "",
-      },
-    ],
+    albums: albumList,
   };
+
+  addAlbum = (albumItem) => {
+    const newAlbumList = [albumItem, ...this.state.albums];
+    return this.setState({ albums: newAlbumList });
+  };
+
+  removeAlbum = (id) => {
+    const removeArr = [...this.state.albums].filter((albumItem) => {
+      return albumItem.id !== id;
+    });
+    this.setState({ albums: removeArr });
+  };
+
   render() {
     return (
       <>
         <div className="container">
           <div className="header">
-            <AddAlbum />
+            <AddAlbum onAdd={this.addAlbum} albums={this.state.albums} />
           </div>
 
           <div className="albums">
             <div className="albums-box">
               <h1 className="albums-heading">Albums</h1>
               <div className="album_item">
-                <Albums albums={this.state.albums} artist={this.state.artist} />
+                <Albums
+                  albums={this.state.albums}
+                  removeAlbum={this.removeAlbum}
+                />
               </div>
             </div>
           </div>

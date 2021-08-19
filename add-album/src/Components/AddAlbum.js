@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class AddAlbum extends Component {
   state = {
     album: "",
     artist: "",
-    albumCover: "",
+    albumCover: null,
   };
 
   fileSelectHandleChange = (e) => {
@@ -16,13 +17,48 @@ class AddAlbum extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const { album, artist, albumCover } = this.state;
+    const newAlbum = {
+      id: new Date().getTime().toString(),
+      album: album,
+      artist: artist,
+      albumCover: albumCover,
+    };
+
+    const albumList = this.props.onAdd(newAlbum);
+
+    this.setState({
+      album: "",
+      artist: "",
+      albumCover: null,
+      albumList: albumList,
+    });
+    const fd = new FormData();
+    fd.append("image", newAlbum.albumCover);
+    fd.append("albumTitle", newAlbum.album);
+    fd.append("artist", newAlbum.artist);
+
+    let config = {
+      Headers: {
+        Authorization: "Client-ID ec1da133519fad4",
+        Accept: "application/json",
+      },
+    };
+    axios
+      .post("https://api.imgur.com/3/image", fd, config)
+      .then((res) => {
+        return console.log(res);
+      })
+      .catch((error) => {
+        return console.log("error", error);
+      });
   };
 
   render() {
     return (
       <>
         <div className="form-header">
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <h2>Add Album Here</h2>
             <input
               type="text"
@@ -37,7 +73,7 @@ class AddAlbum extends Component {
               name="artist"
               placeholder="Add Artist Name"
               onChange={(e) => this.setState({ artist: e.target.value })}
-              value={this.artist}
+              value={this.state.artist}
               required={true}
             />
             <input
@@ -55,91 +91,25 @@ class AddAlbum extends Component {
   }
 }
 export default AddAlbum;
-// const AddAlbum = ({ save }) => {
-//   const [list, setList] = useState(album);
-//   const [albumCover, setAlbumCover] = useState(null);
-//   const [albumTitle, setAlbumTitle] = useState("");
-//   const [artist, setArtist] = useState("");
-
-//   const fileSelectHandler = (e) => {
-//     const currentFile = e.target.files[0];
-//     setAlbumCover({albumCover:URL.createObjectURL(currentFile)});
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-
-//     const albumData = {
-//       id: new Date().getTime().toString(),
-//       albumCover: albumCover,
-//       artist: artist,
-//       albumTitle: albumTitle,
-//     };
-
-//     const newList = list.concat(albumData);
-//     setList(newList);
-//     save(albumData);
-
+// console.log(album, artist, albumCover);
+//     console.log(this.state.albums);
 //     const fd = new FormData();
 
-//     fd.append("image", albumData.albumCover);
-//     fd.append("albumTitle", albumData.albumTitle);
-//     fd.append("artist", albumData.artist);
+//     fd.append("image", newAlbum.albumCover);
+//     // fd.append("albumTitle", album);
+//     // fd.append("artist", artist);
 
 //     let config = {
 //       Headers: {
-//         Authorization: "Client-ID bf6693a339ea8b9",
+//         Authorization: "Client-ID 30e9aff1ee22f93",
 //         Accept: "application/json",
 //       },
 //     };
 //     axios
 //       .post("https://api.imgur.com/3/image", fd, config)
 //       .then((res) => {
-//         return res.json();
-//       })
-//       .then((data) => {
-//         return console.log(data);
+//         return console.log(res);
 //       })
 //       .catch((error) => {
 //         return console.log("error", error);
 //       });
-
-//     setAlbumCover("");
-//     setAlbumTitle("");
-//     setArtist("");
-//   };
-
-//   return (
-// <>
-//   <div className="form-header">
-//     <form onSubmit={handleSubmit}>
-//       <h2>Add item here</h2>
-//       <input
-//         type="text"
-//         name="albumTitle"
-//         placeholder="Add Title"
-//         onChange={(e) => setAlbumTitle(e.target.value)}
-//         value={albumTitle}
-//         required={true}
-//       />
-//       <input
-//         type="text"
-//         name="artist"
-//         placeholder="Add Artist Name"
-//         onChange={(e) => setArtist(e.target.value)}
-//         value={artist}
-//         required={true}
-//       />
-//       <input
-//         type="file"
-//         accept="image/*"
-//         name="albumCover"
-//         onChange={fileSelectHandler}
-//         required={true}
-//       />
-//       <button className="btn">Upload</button>
-//     </form>
-//   </div>
-// </>
-//   );
-// };
